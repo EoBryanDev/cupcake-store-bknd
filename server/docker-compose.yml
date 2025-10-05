@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  ck-store:
+    image: postgres:16.8-alpine
+    container_name: ck-store
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ck-store
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
