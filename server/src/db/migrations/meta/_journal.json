@@ -8,6 +8,13 @@
       "when": 1759691537327,
       "tag": "0000_misty_edwin_jarvis",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1759695684474,
+      "tag": "0001_wandering_legion",
+      "breakpoints": true
     }
   ]
 }
