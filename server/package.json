@@ -16,6 +16,7 @@
     "db:seed": "node src/db/seed.ts",
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
+    "docker:down-brute": "docker compose down -v",
     "docker:create": "docker build -t hcs-server:v1 .",
     "lint": "eslint \"./src/**/*.{js,ts}\"",
     "lint:fix": "eslint \"./src/**/*.{js,ts}\" --fix",

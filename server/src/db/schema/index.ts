@@ -1,1 +1,3 @@
-export const schema = {};
+import { tests } from "./tests.db.schema";
+
+export const schema = { tests };
