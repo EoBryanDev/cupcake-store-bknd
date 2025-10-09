@@ -4,6 +4,7 @@ import helmet from "helmet";
 import { rateLimit } from "express-rate-limit";
 import { IWebServer } from "../interfaces/IWebServer";
 import { public_routes } from "../routes/public_routes";
+import { errorHandler } from "../middlewares/error-handler";
 
 class ExpressWebServer implements IWebServer {
   private server: Express;
@@ -15,6 +16,7 @@ class ExpressWebServer implements IWebServer {
 
   initialize = (port: number) => {
     this.createSecurity();
+    this.createErrorHandler();
     this.createRoutes();
     this.createServer(port);
   };
@@ -52,6 +54,10 @@ class ExpressWebServer implements IWebServer {
     );
     this.server.use(cors());
     this.server.use(limiter);
+  };
+
+  createErrorHandler = () => {
+    this.server.use(errorHandler);
   };
 }
 
