@@ -9,6 +9,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { products } from "./products";
 import { users } from "./users";
+import { relations } from "drizzle-orm";
 
 const productVariants = pgTable("product_variants", {
   productVariantId: uuid("product_variant_id").primaryKey().defaultRandom(),
@@ -31,4 +32,15 @@ const productVariants = pgTable("product_variants", {
   createdBy: uuid("created_by").references(() => users.userId),
 });
 
-export { productVariants };
+const productVariantsRelations = relations(productVariants, ({ one }) => ({
+  product: one(products, {
+    fields: [productVariants.productId],
+    references: [products.productId],
+  }),
+  creator: one(users, {
+    fields: [productVariants.createdBy],
+    references: [users.userId],
+  }),
+}));
+
+export { productVariants, productVariantsRelations };
