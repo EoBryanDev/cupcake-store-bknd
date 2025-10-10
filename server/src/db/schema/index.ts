@@ -1,14 +1,14 @@
-import { categories } from "./categories";
+import { categories, categoriesRelations } from "./categories";
 import { operateAreas } from "./operate-areas";
 import { orderItems } from "./order-items";
 import { orders } from "./orders";
-import { productVariants } from "./product-variants";
-import { products } from "./products";
+import { productVariants, productVariantsRelations } from "./product-variants";
+import { products, productsRelations } from "./products";
 import { shippingAddresses } from "./shipping-addresses";
 import { stockFluxes } from "./stock-fluxes";
 import { stocks } from "./stocks";
 import { tests } from "./tests.db.schema";
-import { users } from "./users";
+import { users, usersRelations } from "./users";
 
 export const schema = {
   tests,
@@ -22,4 +22,8 @@ export const schema = {
   stockFluxes,
   shippingAddresses,
   operateAreas,
+  categoriesRelations,
+  productsRelations,
+  productVariantsRelations,
+  usersRelations,
 };
