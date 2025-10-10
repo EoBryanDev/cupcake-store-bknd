@@ -15,6 +15,18 @@ const db = drizzle(client, { schema });
 async function main() {
   console.log("Seeding database...");
 
+  // Delete all data
+  await db.delete(schema.orderItems);
+  await db.delete(schema.orders);
+  await db.delete(schema.shippingAddresses);
+  await db.delete(schema.operateAreas);
+  await db.delete(schema.stockFluxes);
+  await db.delete(schema.stocks);
+  await db.delete(schema.productVariants);
+  await db.delete(schema.products);
+  await db.delete(schema.categories);
+  await db.delete(schema.users);
+
   // Users
   const users = await db
     .insert(schema.users)
