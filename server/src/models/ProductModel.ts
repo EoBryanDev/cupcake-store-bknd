@@ -9,7 +9,7 @@ class ProductModel {
     this.dbPostGres = db;
   }
 
-  async getProducts(offset: number, limit: number) {
+  getProducts = async (offset: number, limit: number) => {
     const products = await this.dbPostGres
       .select()
       .from(schema.products)
@@ -29,9 +29,9 @@ class ProductModel {
         totalPages: Math.ceil(count / limit),
       },
     };
-  }
+  };
 
-  async getProductsVariants(offset: number, limit: number) {
+  getProductsVariants = async (offset: number, limit: number) => {
     const productVariants = await this.dbPostGres.query.products.findMany({
       with: {
         category: true,
@@ -51,7 +51,7 @@ class ProductModel {
         totalPages: Math.ceil(productVariants.length / limit),
       },
     };
-  }
+  };
 }
 
 export { ProductModel };

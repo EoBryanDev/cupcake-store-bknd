@@ -9,7 +9,7 @@ class ProductController {
     this.productService = new ProductService();
   }
 
-  async getProducts(req: Request, res: Response) {
+  getProducts = async (req: Request, res: Response) => {
     const { offset, limit } = req.query;
 
     const pagination = standardQueryPaginationSchema.parse({ offset, limit });
@@ -27,12 +27,10 @@ class ProductController {
       error: "",
     };
     res.status(200).send(response);
-  }
+  };
 
-  async getProductsVariants(req: Request, res: Response) {
+  getProductsVariants = async (req: Request, res: Response) => {
     const { offset, limit } = req.query;
-
-    console.log("here");
 
     const pagination = standardQueryPaginationSchema.parse({ offset, limit });
 
@@ -49,7 +47,7 @@ class ProductController {
       error: "",
     };
     res.status(200).send(response);
-  }
+  };
 }
 
 export { ProductController };

@@ -8,7 +8,7 @@ class ProductService {
     this.productModel = new ProductModel();
   }
 
-  async getProducts(offset: number, limit: number) {
+  getProducts = async (offset: number, limit: number) => {
     const products = await this.productModel.getProducts(offset, limit);
 
     if (products.data.length === 0) {
@@ -16,9 +16,9 @@ class ProductService {
     }
 
     return products;
-  }
+  };
 
-  async getProductsVariants(offset: number, limit: number) {
+  getProductsVariants = async (offset: number, limit: number) => {
     const products = await this.productModel.getProductsVariants(offset, limit);
 
     if (products.data.length === 0) {
@@ -26,7 +26,7 @@ class ProductService {
     }
 
     return products;
-  }
+  };
 }
 
 export { ProductService };
