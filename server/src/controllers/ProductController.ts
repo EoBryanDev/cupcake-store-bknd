@@ -10,14 +10,17 @@ class ProductController {
   }
 
   getProducts = async (req: Request, res: Response) => {
-    const { offset, limit } = req.query;
+    const { offset, limit, order, currentPage, orderBy } = req.query;
 
-    const pagination = standardQueryPaginationSchema.parse({ offset, limit });
+    const pagination = standardQueryPaginationSchema.parse({
+      offset,
+      limit,
+      order,
+      orderBy,
+      currentPage,
+    });
 
-    const data = await this.productService.getProducts(
-      pagination.offset,
-      pagination.limit,
-    );
+    const data = await this.productService.getProducts(pagination);
 
     const response = {
       data,
@@ -30,14 +33,17 @@ class ProductController {
   };
 
   getProductsVariants = async (req: Request, res: Response) => {
-    const { offset, limit } = req.query;
+    const { offset, limit, order, currentPage, orderBy } = req.query;
 
-    const pagination = standardQueryPaginationSchema.parse({ offset, limit });
+    const pagination = standardQueryPaginationSchema.parse({
+      offset,
+      limit,
+      order,
+      orderBy,
+      currentPage,
+    });
 
-    const data = await this.productService.getProductsVariants(
-      pagination.offset,
-      pagination.limit,
-    );
+    const data = await this.productService.getProductsVariants(pagination);
 
     const response = {
       data,
