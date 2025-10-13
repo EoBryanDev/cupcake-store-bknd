@@ -26,8 +26,8 @@ class WebServerFactory implements IWebServerFactory {
     this.server = server;
   }
 
-  public startup(port: number) {
-    this.server.initialize(port);
+  public startup(port: number, ip: string) {
+    this.server.initialize(port, ip);
   }
 }
 
