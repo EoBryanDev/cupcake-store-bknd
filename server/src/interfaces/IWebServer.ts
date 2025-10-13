@@ -1,6 +1,6 @@
 interface IWebServer {
-  initialize: (port: number) => void;
-  createServer: (port: number) => void;
+  initialize: (port: number, ip: string) => void;
+  createServer: (port: number, ip: string) => void;
   createRoutes: () => void;
   createErrorHandler?: () => void;
   createDocumentation?: () => void;
@@ -9,7 +9,7 @@ interface IWebServer {
   createMiddlewares?: () => void;
 }
 interface IWebServerFactory {
-  startup: (port: number) => void;
+  startup: (port: number, ip: string) => void;
 }
 
 export { IWebServer, IWebServerFactory };
