@@ -17,7 +17,8 @@
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
     "docker:down-brute": "docker compose down -v",
-    "docker:create": "docker build -t hcs-server:v1 .",
+    "docker:create": "docker build --target production -t eobryandev/cupcake-bknd:0.0.1 .",
+    "docker:push": "docker push eobryandev/cupcake-bknd:0.0.1",
     "lint": "eslint \"./src/**/*.{js,ts}\"",
     "lint:fix": "eslint \"./src/**/*.{js,ts}\" --fix",
     "format": "prettier --write \"**/*.{js,ts,json,css,html,md}\""

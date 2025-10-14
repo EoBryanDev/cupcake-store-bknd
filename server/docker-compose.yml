@@ -1,4 +1,17 @@
 services:
+  server:
+    image: eobryandev/cupcake-bknd:0.0.1
+    container_name: cupcake-bknd
+    ports:
+      - 3333:3333
+    depends_on:
+      - ck-store
+    environment:
+      - POSTGRES_URL=${POSTGRES_URL}
+      - SERVER_PORT=${SERVER_PORT}
+      - SERVER_IP=${SERVER_IP}
+      - SERVER_ENV=${SERVER_ENV}
+
   ck-store:
     image: postgres:16.8-alpine
     container_name: ck-store
