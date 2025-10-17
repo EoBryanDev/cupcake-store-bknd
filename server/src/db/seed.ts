@@ -2,7 +2,7 @@ import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import { schema } from "./schema";
 
-const connectionString = "";
+const connectionString = process.env.POSTGRES_URL;
 console.log(connectionString);
 
 if (!connectionString) {
