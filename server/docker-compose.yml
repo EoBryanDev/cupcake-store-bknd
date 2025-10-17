@@ -11,6 +11,8 @@ services:
       - SERVER_PORT=${SERVER_PORT}
       - SERVER_IP=${SERVER_IP}
       - SERVER_ENV=${SERVER_ENV}
+    networks:
+      - app-network
 
   ck-store:
     image: postgres:16.8-alpine
@@ -23,6 +25,12 @@ services:
       - 5432:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
 
 volumes:
   postgres_data:
+
+networks:
+  app-network:
+    external: true
