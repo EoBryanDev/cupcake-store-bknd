@@ -1,6 +1,6 @@
 services:
   server:
-    image: eobryandev/cupcake-bknd:lastest
+    image: eobryandev/cupcake-bknd:latest #0.0.1
     #build: .
     container_name: cupcake-bknd
     ports:
