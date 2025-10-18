@@ -8,6 +8,6 @@ export default defineConfig({
   schema: './src/db/schema/**.ts',
   out: './src/db/migrations',
   dbCredentials: {
-    url: env.POSTGRES_URL,
+    url: env.SERVER_ENV === 'DEV' ? env.POSTGRES_URL_DEV : env.POSTGRES_URL,
   },
 });

@@ -5,6 +5,7 @@ const envSchema = z.object({
   SERVER_IP: z.string().default("http://localhost"),
   SERVER_ENV: z.string().default("DEV"),
   POSTGRES_URL: z.string().startsWith("postgresql://").default(""),
+  POSTGRES_URL_DEV: z.string().startsWith("postgresql://").default(""),
 });
 
 export const env = envSchema.parse(process.env);
