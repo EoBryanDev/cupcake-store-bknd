@@ -19,20 +19,14 @@ class ProductService {
     return products;
   };
 
-  getProductsVariants = async (pagination: TPagination) => {
-    let products;
+  getProductsBySlug = async (slug: string) => {
+    const product = await this.productModel.getProductsBySlug(slug);
 
-    if (pagination.search === "most-popular") {
-      products = await this.productModel.getMostPopularProducts(pagination);
-    } else {
-      products = await this.productModel.getProductsVariants(pagination);
-    }
-
-    if (products.data.length === 0) {
+    if (!product.data) {
       throw new NotFoundError("Products not found");
     }
 
-    return products;
+    return product;
   };
 }
 
