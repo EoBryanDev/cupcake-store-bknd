@@ -36,6 +36,29 @@ class ProductVariantService {
 
     return productVariant;
   };
+
+  getProductVariantsByCategory = async (
+    pagination: TPagination,
+    slug: string,
+  ) => {
+    const productVariantCategories =
+      await this.productVariantModel.getProductVariantsByCategory(
+        pagination,
+        slug,
+      );
+
+    if (productVariantCategories.data.length === 0) {
+      const productVariants = await this.getProductVariants(pagination);
+
+      if (productVariants.data.length === 0) {
+        throw new NotFoundError("Products not found");
+      }
+
+      return productVariants;
+    }
+
+    return productVariantCategories;
+  };
 }
 
 export { ProductVariantService };

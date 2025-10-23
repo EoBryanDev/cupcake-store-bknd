@@ -12,6 +12,10 @@ products.get("/products/variants", productController.getProductVariants);
 products.get("/products/:slug", productController.getProductsBySlug);
 
 products.get(
+  "/products/:slug/variants/categories",
+  productController.getProductsVariantsByCategory,
+);
+products.get(
   "/products/:slug/variants",
   productController.getProductsVariantsBySlug,
 );

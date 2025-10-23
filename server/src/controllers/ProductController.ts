@@ -78,6 +78,30 @@ class ProductController {
 
     res.status(200).send(response);
   };
+
+  getProductsVariantsByCategory = async (req: Request, res: Response) => {
+    const { slug } = req.params;
+    const { offset, limit, order, currentPage, orderBy } = req.query;
+
+    const pagination = standardQueryPaginationSchema.parse({
+      offset,
+      limit,
+      order,
+      orderBy,
+      currentPage,
+    });
+
+    const data = await this.productVariantService.getProductVariantsByCategory(
+      pagination,
+      slug,
+    );
+
+    const response = {
+      ...data,
+      error: "",
+    };
+    res.status(200).send(response);
+  };
 }
 
 export { ProductController };

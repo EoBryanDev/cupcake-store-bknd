@@ -28,8 +28,38 @@ class ProductVariantModel {
       },
     });
 
-    console.log("here");
-    console.log(productVariants);
+    return {
+      data: productVariants,
+      pagination: {
+        offset,
+        limit,
+        totalItems: productVariants.length,
+        totalPages: Math.ceil(productVariants.length / limit),
+      },
+    };
+  };
+
+  getProductVariantsByCategory = async (
+    pagination: TPagination,
+    slug: string,
+  ) => {
+    const { limit, offset, order, orderBy } = pagination;
+
+    const productVariants = await this.dbPostGres.query.products.findMany({
+      where: (products, { eq }) => eq(products.slug, slug),
+      with: {
+        category: true,
+        variants: true,
+      },
+      limit: limit,
+      offset: (offset - 1) * limit,
+      orderBy: (products, { asc, desc }) => {
+        const orderFunction = order === "asc" ? asc : desc;
+        const columnToOrder =
+          orderBy === "createdAt" ? products.createdAt : products.name;
+        return [orderFunction(columnToOrder)];
+      },
+    });
 
     return {
       data: productVariants,
