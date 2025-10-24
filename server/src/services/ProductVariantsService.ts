@@ -12,9 +12,11 @@ class ProductVariantService {
   getProductVariants = async (pagination: TPagination) => {
     let products;
 
-    if (pagination.search === "most-popular") {
+    if (pagination.searchType === "most-popular") {
       products =
         await this.productVariantModel.getMostPopularProducts(pagination);
+    } else if (pagination.searchType === "newest") {
+      products = await this.productVariantModel.getProductVariants(pagination);
     } else {
       products = await this.productVariantModel.getProductVariants(pagination);
     }

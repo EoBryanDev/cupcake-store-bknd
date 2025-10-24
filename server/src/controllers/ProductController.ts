@@ -33,7 +33,8 @@ class ProductController {
   };
 
   getProductVariants = async (req: Request, res: Response) => {
-    const { offset, limit, order, currentPage, orderBy } = req.query;
+    const { offset, limit, order, currentPage, orderBy, searchType } =
+      req.query;
 
     const pagination = standardQueryPaginationSchema.parse({
       offset,
@@ -41,6 +42,7 @@ class ProductController {
       order,
       orderBy,
       currentPage,
+      searchType,
     });
 
     const data =
