@@ -7,6 +7,10 @@ const standardQueryPaginationSchema = z.object({
   orderBy: z.enum(["name", "createdAt"]).optional().default("name"),
   currentPage: z.coerce.number().min(1).optional(),
   searchType: z.enum(["most-popular", "newest", "default"]).optional(),
+  colors: z.string().optional(),
+  sizes: z.string().optional(),
+  minPrice: z.coerce.number().optional(),
+  maxPrice: z.coerce.number().optional(),
 });
 
 type TPagination = z.infer<typeof standardQueryPaginationSchema>;

@@ -1,7 +1,7 @@
 import { schema } from "../db/schema";
 import { TPagination } from "../schemas/get/pagination";
 import { db } from "../lib/postgres-connection";
-import { desc, inArray, sum } from "drizzle-orm";
+import { and, desc, gte, inArray, lte, sql, SQL, sum } from "drizzle-orm";
 
 class ProductVariantModel {
   private dbPostGres;
@@ -13,13 +13,46 @@ class ProductVariantModel {
   getProductVariants = async (pagination: TPagination) => {
     const { limit, offset, order, orderBy } = pagination;
 
+    const { colors, sizes, minPrice, maxPrice } = pagination;
+
+    const conditions: (SQL | undefined)[] = [];
+
+    if (colors && Array.isArray(colors) && colors.length > 0) {
+      conditions.push(inArray(schema.productVariants.color, colors));
+    }
+
+    if (sizes && Array.isArray(sizes) && sizes.length > 0) {
+      conditions.push(inArray(schema.productVariants.size, sizes));
+    }
+
+    if (minPrice) {
+      conditions.push(gte(schema.productVariants.priceInCents, minPrice * 100));
+    }
+
+    if (maxPrice) {
+      conditions.push(lte(schema.productVariants.priceInCents, maxPrice * 100));
+    }
+
+    const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
+
+    const totalCount = await this.dbPostGres
+      .select({
+        count: sql<number>`count(${schema.productVariants.productVariantId})`,
+      })
+      .from(schema.productVariants)
+      .where(whereClause);
+
+    const totalItems = Number(totalCount[0]?.count || 0);
+
     const productVariants = await this.dbPostGres.query.products.findMany({
       with: {
         category: true,
-        variants: true,
+        variants: {
+          where: whereClause,
+        },
       },
       limit: limit,
-      offset: (offset - 1) * limit,
+      offset: offset - 1,
       orderBy: (products, { asc, desc }) => {
         const orderFunction = order === "asc" ? asc : desc;
         const columnToOrder =
@@ -33,8 +66,8 @@ class ProductVariantModel {
       pagination: {
         offset,
         limit,
-        totalItems: productVariants.length,
-        totalPages: Math.ceil(productVariants.length / limit),
+        totalItems,
+        totalPages: Math.ceil(totalItems / limit),
       },
     };
   };
