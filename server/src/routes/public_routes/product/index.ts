@@ -7,6 +7,8 @@ const productController = new ProductController();
 // prefix da rota é o product
 products.get("/products", productController.getProducts);
 
+products.get("/products/filters", productController.getProductsFilters);
+
 products.get("/products/variants", productController.getProductVariants);
 
 products.get("/products/:slug", productController.getProductsBySlug);

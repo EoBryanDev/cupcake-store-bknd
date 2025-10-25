@@ -32,6 +32,16 @@ class ProductController {
     res.status(200).send(response);
   };
 
+  getProductsFilters = async (_req: Request, res: Response) => {
+    const data = await this.productService.getProductsFilters();
+
+    const response = {
+      ...data,
+      error: "",
+    };
+    res.status(200).send(response);
+  };
+
   getProductVariants = async (req: Request, res: Response) => {
     const { offset, limit, order, currentPage, orderBy, searchType } =
       req.query;
@@ -52,6 +62,7 @@ class ProductController {
       ...data,
       error: "",
     };
+
     res.status(200).send(response);
   };
 

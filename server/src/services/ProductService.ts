@@ -19,6 +19,16 @@ class ProductService {
     return products;
   };
 
+  getProductsFilters = async () => {
+    const products = await this.productModel.getProductsFilters();
+
+    if (!products.data) {
+      throw new NotFoundError("Filters not found");
+    }
+
+    return products;
+  };
+
   getProductsBySlug = async (slug: string) => {
     const product = await this.productModel.getProductsBySlug(slug);
 
