@@ -12,7 +12,7 @@ class RegisterModel {
   register = async (payload: TRegister) => {
     const [created] = await this.dbPostGres
       .insert(schema.users)
-      .values(payload)
+      .values({ ...payload, birthDate: new Date(payload.birthDate) })
       .returning();
 
     return created;

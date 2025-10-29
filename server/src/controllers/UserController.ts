@@ -21,7 +21,7 @@ class UserController {
     const data = await this.loginService.login(credentials);
 
     const response = {
-      ...data,
+      data,
       error: "",
     };
     res.status(200).send(response);
@@ -32,10 +32,29 @@ class UserController {
 
     const registerInfo = registerSchema.parse(body);
 
-    const data = await this.loginService.login(registerInfo);
+    const userCreated = await this.registerService.register(registerInfo);
+
+    const loginResponse = await this.loginService.login({
+      email: userCreated.email,
+      password: registerInfo.password,
+    });
+
+    const createdUser = {
+      email: userCreated.email,
+      password: userCreated.password,
+      firstName: userCreated.firstName,
+      lastName: userCreated.lastName,
+      phoneNumber: userCreated.phoneNumber,
+      legalId: userCreated.legalId,
+      birthDate: userCreated.birthDate,
+      createdAt: userCreated.createdAt,
+      token: loginResponse.access_token,
+      expires_in: loginResponse.expires_in,
+      expires_at: loginResponse.expires_at,
+    };
 
     const response = {
-      ...data,
+      data: createdUser,
       error: "",
     };
     res.status(200).send(response);

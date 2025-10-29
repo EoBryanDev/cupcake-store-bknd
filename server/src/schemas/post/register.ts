@@ -5,9 +5,10 @@ const registerSchema = z.object({
   lastName: z.string(),
   phoneNumber: z.string(),
   legalId: z.string(),
-  birthDate: z.date(),
+  birthDate: z.iso.datetime(),
   email: z.email(),
   password: z.string(),
+  passwordConfirmation: z.string(),
 });
 
 type TRegister = z.infer<typeof registerSchema>;

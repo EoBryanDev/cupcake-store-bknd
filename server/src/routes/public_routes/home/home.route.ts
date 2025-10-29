@@ -10,6 +10,6 @@ home.get("/health-check", (_req: Request, res: Response) => {
 
 home.post("/login", homeController.login);
 
-home.post("/register", homeController.register);
+home.post("/users", homeController.register);
 
 export { home };
