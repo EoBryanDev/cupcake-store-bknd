@@ -44,6 +44,9 @@ class LoginService {
       this.tokenService.generate(token_payload);
 
     const response = {
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
       access_token,
       expires_in: expiresIn,
       expires_at: parseSecondsToIsoString(expiresIn),

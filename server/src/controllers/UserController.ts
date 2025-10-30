@@ -41,7 +41,6 @@ class UserController {
 
     const createdUser = {
       email: userCreated.email,
-      password: userCreated.password,
       firstName: userCreated.firstName,
       lastName: userCreated.lastName,
       phoneNumber: userCreated.phoneNumber,
