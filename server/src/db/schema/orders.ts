@@ -27,6 +27,10 @@ const orders = pgTable("orders", {
     >()
     .default("PENDING")
     .notNull(),
+  paymentType: text("payment_type")
+    .$type<"BANK_SLIP" | "CREDIT_CARD" | "DEBIT_CARD">()
+    .default("BANK_SLIP")
+    .notNull(),
   approval: text("approval")
     .$type<"APPROVED" | "PENDING" | "REJECTED">()
     .default("PENDING"),

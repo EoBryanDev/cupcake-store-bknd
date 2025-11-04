@@ -15,6 +15,13 @@
       "when": 1759695684474,
       "tag": "0001_wandering_legion",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1762272748228,
+      "tag": "0002_eager_vulture",
+      "breakpoints": true
     }
   ]
 }

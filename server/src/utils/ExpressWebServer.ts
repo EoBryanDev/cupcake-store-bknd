@@ -4,9 +4,8 @@ import helmet from "helmet";
 import { rateLimit } from "express-rate-limit";
 import { IWebServer } from "../interfaces/IWebServer";
 import { public_routes } from "../routes/public_routes";
-// import { private_routes } from "../routes/private_routes";
 import { errorHandler } from "../middlewares/error-handler";
-// import { requireAuth } from "../middlewares/auth-middleware";
+import { private_routes } from "../routes/private_routes";
 
 class ExpressWebServer implements IWebServer {
   private server: Express;
@@ -35,9 +34,9 @@ class ExpressWebServer implements IWebServer {
       this.server.use(public_route);
     });
 
-    // private_routes.forEach((private_route) => {
-    //   this.server.use(requireAuth, private_route);
-    // });
+    private_routes.forEach((private_route) => {
+      this.server.use(private_route);
+    });
   };
 
   createSecurity = () => {
