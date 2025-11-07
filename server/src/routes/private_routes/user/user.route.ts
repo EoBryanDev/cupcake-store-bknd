@@ -9,6 +9,16 @@ user.get("/addresses", authMiddleware, userController.getAddresses);
 
 user.post("/addresses", authMiddleware, userController.createAddress);
 
-user.put("/addresses", authMiddleware, userController.updateAddress);
+user.put(
+  "/addresses/:address_id",
+  authMiddleware,
+  userController.updateAddress,
+);
+
+user.delete(
+  "/addresses/:address_id",
+  authMiddleware,
+  userController.deleteAddress,
+);
 
 export { user };

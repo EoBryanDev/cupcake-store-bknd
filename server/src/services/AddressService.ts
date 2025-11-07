@@ -25,9 +25,13 @@ class AddressService {
     return response;
   };
 
-  updateAddress = async (payload: TUpdateAddress, user_id: string) => {
+  updateAddress = async (
+    address_id: string,
+    payload: TUpdateAddress,
+    user_id: string,
+  ) => {
     const addressExists = await this.addressModel.findAddressById(
-      payload.shippingAddrId,
+      address_id,
       user_id,
     );
 
@@ -35,8 +39,29 @@ class AddressService {
       throw new NotFoundError("User address was not found");
     }
 
-    const response = await this.addressModel.updateAddress(payload, user_id);
+    const response = await this.addressModel.updateAddress(
+      address_id,
+      payload,
+      user_id,
+    );
 
+    return response;
+  };
+
+  deleteAddress = async (shippingAddrId: string, user_id: string) => {
+    const addressExists = await this.addressModel.findAddressById(
+      shippingAddrId,
+      user_id,
+    );
+
+    if (!addressExists) {
+      throw new NotFoundError("User address was not found");
+    }
+
+    const response = await this.addressModel.deleteAddress(
+      shippingAddrId,
+      user_id,
+    );
     return response;
   };
 
@@ -44,7 +69,7 @@ class AddressService {
     const response = await this.addressModel.findAddresses(user_id);
 
     if (response.length === 0) {
-      throw new NotFoundError("User address was not found");
+      return null;
     }
 
     return response;

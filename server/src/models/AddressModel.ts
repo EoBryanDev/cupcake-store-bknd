@@ -1,4 +1,4 @@
-import { sql } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { schema } from "../db/schema";
 import { db } from "../lib/postgres-connection";
 import { TAddress } from "../schemas/post/address";
@@ -20,13 +20,37 @@ class AddressModel {
     return created;
   };
 
-  updateAddress = async (payload: TUpdateAddress, userId: string) => {
+  updateAddress = async (
+    address_id: string,
+    payload: TUpdateAddress,
+    userId: string,
+  ) => {
     const [updated] = await this.dbPostGres
       .update(schema.shippingAddresses)
       .set({ ...payload, userId: userId })
+      .where(
+        and(
+          eq(schema.shippingAddresses.shippingAddrId, address_id),
+          eq(schema.shippingAddresses.userId, userId),
+        ),
+      )
       .returning();
 
     return updated;
+  };
+
+  deleteAddress = async (shippingAddress: string, userId: string) => {
+    const [deleted] = await this.dbPostGres
+      .delete(schema.shippingAddresses)
+      .where(
+        and(
+          eq(schema.shippingAddresses.shippingAddrId, shippingAddress),
+          eq(schema.shippingAddresses.userId, userId),
+        ),
+      )
+      .returning();
+
+    return deleted;
   };
 
   findAddressByUserNStreet = async (street: string, userId: string) => {

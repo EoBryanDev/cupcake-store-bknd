@@ -95,17 +95,34 @@ class UserController {
 
   updateAddress = async (req: Request, res: Response) => {
     const { body } = req;
+    const { address_id } = req.params;
     const { user_id } = req.user!;
 
     const updateAddressPayload = updateAddressSchema.parse(body);
 
     const userUpdated = await this.addressService.updateAddress(
+      address_id,
       updateAddressPayload,
       user_id,
     );
 
     const response = {
       data: [userUpdated],
+      error: "",
+    };
+    res.status(200).send(response);
+  };
+  deleteAddress = async (req: Request, res: Response) => {
+    const { address_id } = req.params;
+    const { user_id } = req.user!;
+
+    const deleted = await this.addressService.deleteAddress(
+      address_id,
+      user_id,
+    );
+
+    const response = {
+      data: deleted,
       error: "",
     };
     res.status(200).send(response);
