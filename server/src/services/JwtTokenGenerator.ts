@@ -23,9 +23,8 @@ export class JwtTokenGenerator implements ITokenGenerator {
   validate(token: string): object | null {
     try {
       return jwt.verify(token, this.secret) as object;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      console.log(error);
-
       return null;
     }
   }
