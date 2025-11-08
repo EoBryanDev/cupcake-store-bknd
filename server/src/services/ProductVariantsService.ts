@@ -1,4 +1,3 @@
-import { NotFoundError } from "../errors/http-errors/NotFoundError";
 import { ProductVariantModel } from "../models/ProductVariantModel";
 import { TPagination } from "../schemas/get/pagination";
 
@@ -22,7 +21,7 @@ class ProductVariantService {
     }
 
     if (products.data.length === 0) {
-      throw new NotFoundError("Products not found");
+      return null;
     }
 
     return products;
@@ -33,7 +32,7 @@ class ProductVariantService {
       await this.productVariantModel.getProductVariantsBySlug(slug);
 
     if (!productVariant.data) {
-      throw new NotFoundError("Products not found");
+      return null;
     }
 
     return productVariant;
@@ -52,8 +51,11 @@ class ProductVariantService {
     if (productVariantCategories.data.length === 0) {
       const productVariants = await this.getProductVariants(pagination);
 
+      if (!productVariants) {
+        return null;
+      }
       if (productVariants.data.length === 0) {
-        throw new NotFoundError("Products not found");
+        return null;
       }
 
       return productVariants;
