@@ -1,5 +1,7 @@
 import { integer, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import { users } from "./users";
+import { orderItems } from "./order-items";
+import { relations } from "drizzle-orm";
 
 const orders = pgTable("orders", {
   orderId: uuid("order_id").primaryKey().defaultRandom(),
@@ -35,6 +37,15 @@ const orders = pgTable("orders", {
     .$type<"APPROVED" | "PENDING" | "REJECTED">()
     .default("PENDING"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  lastUpdateAt: timestamp("last_update_at").defaultNow().notNull(),
 });
 
-export { orders };
+const ordersRelations = relations(orders, ({ many, one }) => ({
+  items: many(orderItems),
+  user: one(users, {
+    fields: [orders.userId],
+    references: [users.userId],
+  }),
+}));
+
+export { orders, ordersRelations };

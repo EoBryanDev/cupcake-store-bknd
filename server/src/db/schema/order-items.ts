@@ -1,6 +1,7 @@
 import { integer, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import { orders } from "./orders";
 import { productVariants } from "./product-variants";
+import { relations } from "drizzle-orm";
 
 const orderItems = pgTable("order_items", {
   orderItemId: uuid("order_item_id").primaryKey().defaultRandom(),
@@ -18,4 +19,15 @@ const orderItems = pgTable("order_items", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export { orderItems };
+const orderItemsRelations = relations(orderItems, ({ one }) => ({
+  order: one(orders, {
+    fields: [orderItems.orderId],
+    references: [orders.orderId],
+  }),
+  productVariant: one(productVariants, {
+    fields: [orderItems.productVariantId],
+    references: [productVariants.productVariantId],
+  }),
+}));
+
+export { orderItems, orderItemsRelations };
