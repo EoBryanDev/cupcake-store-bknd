@@ -93,10 +93,10 @@ class OrderModel {
       },
       limit: limit,
       offset: (offset - 1) * limit,
-      orderBy: (orders, { asc, desc }) => {
+      orderBy: (orderReq, { asc, desc }) => {
         const orderFunction = order === "asc" ? asc : desc;
         const columnToOrder =
-          orderBy === "createdAt" ? orders.createdAt : orders.street;
+          orderBy === "createdAt" ? orderReq.createdAt : orderReq.street;
         return [orderFunction(columnToOrder)];
       },
     });

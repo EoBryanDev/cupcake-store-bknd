@@ -5,9 +5,9 @@ import { OrderController } from "../../../controllers/OrderController";
 const order: Router = Router();
 const orderController = new OrderController();
 
-order.get("/orders", authMiddleware, orderController.getOrders);
-
 order.get("/orders-user", authMiddleware, orderController.getOrdersByUserId);
+
+order.get("/orders", authMiddleware, orderController.getOrders);
 
 order.post("/orders", authMiddleware, orderController.createOrder);
 
