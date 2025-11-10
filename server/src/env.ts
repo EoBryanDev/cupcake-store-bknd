@@ -11,6 +11,8 @@ const envSchema = z.object({
   CLIENT_PROD: z.string().default("http://localhost:5173"),
   JWT_SECRET: z.string().default(""),
   JWT_EXPIRES_INT: z.coerce.number().default(3600),
+  JWT_SECRET_ADMIN: z.string().default(""),
+  JWT_EXPIRES_INT_ADMIN: z.coerce.number().default(3600),
 });
 
 export const env = envSchema.parse(process.env);
