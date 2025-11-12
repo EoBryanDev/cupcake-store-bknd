@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { schema } from "../db/schema";
 import { db } from "../lib/postgres-connection";
 import { TOrder } from "../schemas/post/order";
@@ -59,12 +59,20 @@ class OrderModel {
   getOrders = async (pagination: TPagination) => {
     const { limit, offset, order, orderBy } = pagination;
 
+    const totalCount = await this.dbPostGres
+      .select({
+        count: sql<number>`count(${schema.orders.orderId})`,
+      })
+      .from(schema.orders);
+
+    const totalItems = Number(totalCount[0]?.count || 0);
+
     const orders = await this.dbPostGres.query.orders.findMany({
       with: {
         items: true,
       },
       limit: limit,
-      offset: (offset - 1) * limit,
+      offset: offset - 1,
       orderBy: (orders, { asc, desc }) => {
         const orderFunction = order === "asc" ? asc : desc;
         const columnToOrder =
@@ -78,8 +86,8 @@ class OrderModel {
       pagination: {
         offset,
         limit,
-        totalItems: orders.length,
-        totalPages: Math.ceil(orders.length / limit),
+        totalItems,
+        totalPages: Math.ceil(totalItems / limit),
       },
     };
   };

@@ -73,11 +73,11 @@ class OrderController {
 
   updateOrder = async (req: Request, res: Response) => {
     const { body } = req;
-    const { order_id } = req.params;
+    const { orders_id } = req.params;
 
     const updatedOrder = updateOrderSchema.parse({
       ...body,
-      orderId: order_id,
+      orderId: orders_id,
     });
 
     const userUpdated = await this.orderService.updateOrder(updatedOrder);
