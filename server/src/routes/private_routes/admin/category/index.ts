@@ -1,17 +1,20 @@
 import { Router } from "express";
 import { CategoryAdminController } from "../../../../controllers/admin/CategoryAdminController";
+import { authAdminMiddleware } from "../../../../middlewares/auth-admin-handler";
 
-const categoriesAdmin: Router = Router();
+const categories_admin: Router = Router();
 const categoryAdminController = new CategoryAdminController();
 
 // prefix da rota é o product
-categoriesAdmin.post(
+categories_admin.post(
   "/admin/categories",
+  authAdminMiddleware,
   categoryAdminController.createCategory,
 );
-categoriesAdmin.put(
+categories_admin.put(
   "/admin/categories/:category_id",
+  authAdminMiddleware,
   categoryAdminController.updateCategory,
 );
 
-export { categoriesAdmin };
+export { categories_admin };
