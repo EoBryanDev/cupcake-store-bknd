@@ -17,11 +17,11 @@ class CategoryAdminService {
     categoryPayload: TPostAdminCategory,
     user_id: string,
   ) => {
-    const products = await this.categoryModel.getCategoryBySlug(
+    const category = await this.categoryModel.getCategoryBySlug(
       categoryPayload.slug,
     );
 
-    if (products) {
+    if (category.data) {
       throw new ConflictError("Category already exists!");
     }
 

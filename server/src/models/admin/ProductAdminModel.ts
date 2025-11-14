@@ -15,12 +15,12 @@ class ProductAdminModel {
     productPayload: TPostAdminProduct,
     user_id: string,
   ) => {
-    const created = await this.dbPostGres
+    const [created] = await this.dbPostGres
       .insert(schema.products)
       .values({ ...productPayload, createdBy: user_id })
       .returning();
 
-    return created;
+    return [created];
   };
 
   updateProduct = async (

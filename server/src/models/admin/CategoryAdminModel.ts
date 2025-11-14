@@ -15,12 +15,12 @@ class CategoryAdminModel {
     categoryPayload: TPostAdminCategory,
     user_id: string,
   ) => {
-    const created = await this.dbPostGres
+    const [created] = await this.dbPostGres
       .insert(schema.categories)
       .values({ ...categoryPayload, createdBy: user_id })
       .returning();
 
-    return created;
+    return [created];
   };
 
   updateCategory = async (
