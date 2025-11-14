@@ -21,7 +21,7 @@ class ProductAdminService {
       productPayload.slug,
     );
 
-    if (products) {
+    if (products.data) {
       throw new ConflictError("Product already exists!");
     }
 
