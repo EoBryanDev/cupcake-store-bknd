@@ -72,6 +72,51 @@ class ProductVariantModel {
     };
   };
 
+  getProductVariantsOnly = async (pagination: TPagination) => {
+    const { limit, offset, order, orderBy } = pagination;
+
+    // const { colors, sizes, minPrice, maxPrice } = pagination;
+
+    const totalCount = await this.dbPostGres
+      .select({
+        count: sql<number>`count(${schema.productVariants.productVariantId})`,
+      })
+      .from(schema.productVariants);
+
+    const totalItems = Number(totalCount[0]?.count || 0);
+
+    const productVariants =
+      await this.dbPostGres.query.productVariants.findMany({
+        with: {
+          product: {
+            columns: {
+              name: true,
+            },
+          },
+        },
+        limit: limit,
+        offset: offset - 1,
+        orderBy: (productVariants, { asc, desc }) => {
+          const orderFunction = order === "asc" ? asc : desc;
+          const columnToOrder =
+            orderBy === "createdAt"
+              ? productVariants.createdAt
+              : productVariants.name;
+          return [orderFunction(columnToOrder)];
+        },
+      });
+
+    return {
+      data: productVariants,
+      pagination: {
+        offset,
+        limit,
+        totalItems,
+        totalPages: Math.ceil(totalItems / limit),
+      },
+    };
+  };
+
   getProductVariantsByCategory = async (
     pagination: TPagination,
     slug: string,

@@ -27,6 +27,17 @@ class ProductVariantService {
     return products;
   };
 
+  getProductVariantsOnly = async (pagination: TPagination) => {
+    const variant =
+      await this.productVariantModel.getProductVariantsOnly(pagination);
+
+    if (variant.data.length === 0) {
+      return null;
+    }
+
+    return variant;
+  };
+
   getProductVariantsBySlug = async (slug: string) => {
     const productVariant =
       await this.productVariantModel.getProductVariantsBySlug(slug);

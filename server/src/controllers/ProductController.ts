@@ -66,6 +66,30 @@ class ProductController {
     res.status(200).send(response);
   };
 
+  getProductVariantsOnly = async (req: Request, res: Response) => {
+    const { offset, limit, order, currentPage, orderBy, searchType } =
+      req.query;
+
+    const pagination = standardQueryPaginationSchema.parse({
+      offset,
+      limit,
+      order,
+      orderBy,
+      currentPage,
+      searchType,
+    });
+
+    const data =
+      await this.productVariantService.getProductVariantsOnly(pagination);
+
+    const response = {
+      ...data,
+      error: "",
+    };
+
+    res.status(200).send(response);
+  };
+
   getProductsBySlug = async (req: Request, res: Response) => {
     const { slug } = req.params;
 
