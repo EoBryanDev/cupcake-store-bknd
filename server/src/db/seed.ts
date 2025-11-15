@@ -3,7 +3,10 @@ import postgres from "postgres";
 import { schema } from "./schema";
 
 // 1. Configuração da Conexão com o Banco de Dados
-const connectionString = process.env.POSTGRES_URL;
+const connectionString =
+  process.env.SERVER_ENV === "DEV"
+    ? process.env.POSTGRES_URL_DEV
+    : process.env.POSTGRES_URL;
 console.log(`[INFO] Conectando ao banco de dados...`);
 
 if (!connectionString) {

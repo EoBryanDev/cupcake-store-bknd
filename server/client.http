@@ -1,0 +1,27 @@
+### Variables
+@apiurl = http://localhost:3333
+
+### Register a new user
+# @name register
+POST {{apiurl}}/register
+Content-Type: application/json
+
+{
+   "email": "test@example.com",
+   "password": "password123"
+}
+
+### Login with the user
+# @name login
+POST {{apiurl}}/login
+Content-Type: application/json
+
+{
+   "email": "teste@teste.com",
+   "password": "123"
+}
+
+### Get product
+# @name product
+GET {{apiurl}}/products
+Content-Type: application/json

@@ -1,0 +1,1 @@
+ALTER TABLE "orders" ADD COLUMN "payment_type" text DEFAULT 'BANK_SLIP' NOT NULL;

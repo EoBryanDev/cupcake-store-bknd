@@ -5,6 +5,7 @@ import { rateLimit } from "express-rate-limit";
 import { IWebServer } from "../interfaces/IWebServer";
 import { public_routes } from "../routes/public_routes";
 import { errorHandler } from "../middlewares/error-handler";
+import { private_routes } from "../routes/private_routes";
 
 class ExpressWebServer implements IWebServer {
   private server: Express;
@@ -16,8 +17,8 @@ class ExpressWebServer implements IWebServer {
 
   initialize = (port: number, ip: string) => {
     this.createSecurity();
-    this.createErrorHandler();
     this.createRoutes();
+    this.createErrorHandler();
     this.createServer(port, ip);
   };
 
@@ -28,13 +29,14 @@ class ExpressWebServer implements IWebServer {
   };
   createRoutes = () => {
     this.server.use(express.json());
+
     public_routes.forEach((public_route) => {
       this.server.use(public_route);
     });
 
-    // private_routes.forEach((private_route) => {
-    //   this.server.use(private_route);
-    // });
+    private_routes.forEach((private_route) => {
+      this.server.use(private_route);
+    });
   };
 
   createSecurity = () => {

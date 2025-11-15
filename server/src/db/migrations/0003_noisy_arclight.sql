@@ -1,0 +1,1 @@
+ALTER TABLE "orders" ADD COLUMN "last_update_at" timestamp DEFAULT now() NOT NULL;

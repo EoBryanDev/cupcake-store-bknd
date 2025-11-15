@@ -1,7 +1,7 @@
 import { categories, categoriesRelations } from "./categories";
 import { operateAreas } from "./operate-areas";
-import { orderItems } from "./order-items";
-import { orders } from "./orders";
+import { orderItems, orderItemsRelations } from "./order-items";
+import { orders, ordersRelations } from "./orders";
 import { productVariants, productVariantsRelations } from "./product-variants";
 import { products, productsRelations } from "./products";
 import { shippingAddresses } from "./shipping-addresses";
@@ -26,4 +26,6 @@ export const schema = {
   productsRelations,
   productVariantsRelations,
   usersRelations,
+  orderItemsRelations,
+  ordersRelations,
 };

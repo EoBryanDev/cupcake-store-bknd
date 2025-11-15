@@ -1,4 +1,3 @@
-import { NotFoundError } from "../errors/http-errors/NotFoundError";
 import { ProductModel } from "../models/ProductModel";
 import { TPagination } from "../schemas/get/pagination";
 
@@ -13,26 +12,30 @@ class ProductService {
     const products = await this.productModel.getProducts(pagination);
 
     if (products.data.length === 0) {
-      throw new NotFoundError("Products not found");
+      return null;
     }
 
     return products;
   };
 
-  getProductsVariants = async (pagination: TPagination) => {
-    let products;
+  getProductsFilters = async () => {
+    const products = await this.productModel.getProductsFilters();
 
-    if (pagination.search === "most-popular") {
-      products = await this.productModel.getMostPopularProducts(pagination);
-    } else {
-      products = await this.productModel.getProductsVariants(pagination);
-    }
-
-    if (products.data.length === 0) {
-      throw new NotFoundError("Products not found");
+    if (!products.data) {
+      return null;
     }
 
     return products;
+  };
+
+  getProductsBySlug = async (slug: string) => {
+    const product = await this.productModel.getProductsBySlug(slug);
+
+    if (!product.data) {
+      return null;
+    }
+
+    return product;
   };
 }
 

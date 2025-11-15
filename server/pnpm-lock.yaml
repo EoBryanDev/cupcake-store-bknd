@@ -16,7 +16,7 @@ importers:
         version: 2.8.5
       drizzle-orm:
         specifier: ^0.44.5
-        version: 0.44.6(@opentelemetry/api@1.9.0)(postgres@3.4.7)
+        version: 0.44.6(@opentelemetry/api@1.9.0)(kysely@0.28.8)(postgres@3.4.7)
       express:
         specifier: ^5.1.0
         version: 5.1.0
@@ -68,7 +68,7 @@ importers:
         version: 0.31.5
       drizzle-seed:
         specifier: ^0.3.1
-        version: 0.3.1(drizzle-orm@0.44.6(@opentelemetry/api@1.9.0)(postgres@3.4.7))
+        version: 0.3.1(drizzle-orm@0.44.6(@opentelemetry/api@1.9.0)(kysely@0.28.8)(postgres@3.4.7))
       eslint:
         specifier: ^9.36.0
         version: 9.37.0
@@ -1734,6 +1734,10 @@ packages:
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
 
+  kysely@0.28.8:
+    resolution: {integrity: sha512-QUOgl5ZrS9IRuhq5FvOKFSsD/3+IA6MLE81/bOOTRA/YQpKDza2sFdN5g6JCB9BOpqMJDGefLCQ9F12hRS13TA==}
+    engines: {node: '>=20.0.0'}
+
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
@@ -3374,16 +3378,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.44.6(@opentelemetry/api@1.9.0)(postgres@3.4.7):
+  drizzle-orm@0.44.6(@opentelemetry/api@1.9.0)(kysely@0.28.8)(postgres@3.4.7):
     optionalDependencies:
       '@opentelemetry/api': 1.9.0
+      kysely: 0.28.8
       postgres: 3.4.7
 
-  drizzle-seed@0.3.1(drizzle-orm@0.44.6(@opentelemetry/api@1.9.0)(postgres@3.4.7)):
+  drizzle-seed@0.3.1(drizzle-orm@0.44.6(@opentelemetry/api@1.9.0)(kysely@0.28.8)(postgres@3.4.7)):
     dependencies:
       pure-rand: 6.1.0
     optionalDependencies:
-      drizzle-orm: 0.44.6(@opentelemetry/api@1.9.0)(postgres@3.4.7)
+      drizzle-orm: 0.44.6(@opentelemetry/api@1.9.0)(kysely@0.28.8)(postgres@3.4.7)
 
   dunder-proto@1.0.1:
     dependencies:
@@ -4138,6 +4143,9 @@ snapshots:
   keyv@4.5.4:
     dependencies:
       json-buffer: 3.0.1
+
+  kysely@0.28.8:
+    optional: true
 
   levn@0.4.1:
     dependencies:
