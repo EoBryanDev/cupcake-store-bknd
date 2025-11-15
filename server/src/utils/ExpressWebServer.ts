@@ -40,6 +40,7 @@ class ExpressWebServer implements IWebServer {
   };
 
   createSecurity = () => {
+    this.server.set("trust proxy", true);
     const limiter = rateLimit({
       windowMs: 15 * 60 * 1000, // 15 minutes
       limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
@@ -52,7 +53,19 @@ class ExpressWebServer implements IWebServer {
         crossOriginResourcePolicy: false,
       }),
     );
-    this.server.use(cors());
+    this.server.use(
+      cors({
+        origin: [
+          "https://cupcake-store-ftnd-jv4j.vercel.app",
+          "https://ck-store.synit.space",
+          /\.vercel\.app$/,
+          "http://localhost:3000",
+        ],
+        credentials: true,
+        methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+      }),
+    );
     this.server.use(limiter);
   };
 
