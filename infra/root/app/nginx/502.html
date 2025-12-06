@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Serviço Temporariamente Indisponível</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .container {
+        background: white;
+        border-radius: 20px;
+        padding: 60px 40px;
+        max-width: 600px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+      h1 {
+        font-size: 72px;
+        color: #667eea;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 15px;
+      }
+      p {
+        font-size: 18px;
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 30px;
+      }
+      .emoji {
+        font-size: 80px;
+        margin-bottom: 20px;
+        animation: bounce 2s infinite;
+      }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+      .btn {
+        display: inline-block;
+        background: #667eea;
+        color: white;
+        padding: 15px 40px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+      }
+      .status {
+        margin-top: 30px;
+        padding-top: 30px;
+        border-top: 1px solid #eee;
+        color: #999;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="emoji">🚀</div>
+      <h1>502</h1>
+      <h2>Serviço Temporariamente Indisponível</h2>
+      <p>
+        Nosso backend está sendo inicializado ou está em manutenção.<br />
+        Por favor, tente novamente em alguns instantes.
+      </p>
+      <a href="javascript:location.reload()" class="btn">🔄 Tentar Novamente</a>
+      <div class="status">Nginx está funcionando • Backend offline</div>
+    </div>
+  </body>
+</html>
