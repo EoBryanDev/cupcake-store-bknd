@@ -34,7 +34,7 @@
 > - "Always use Drizzle Kit for schema migrations and keeping the database in sync."
 > - "All table schemas must include a `tenant_id` column (or similar) to facilitate the upcoming transition to Row Level Security (RLS)."
 > - "Implement a centralized error handling middleware to capture and format responses consistently."
-> - "Standardize API responses following a consistent JSON structure (e.g., `{ data: ..., meta: { total, limit, offset } }`)."
+> - "Standardize API responses following a consistent JSON structure (e.g., error: `{ success: false, message: "Page not found", data: null, error: { code: PAGE_OUT_BOUNDS, details: "..."} }` | success: `{ success: true, message: null, data: ..., meta: { page, limit, totalItems, totalPages }, error: null`)."
 >
 > **Security & Auth:**
 >
