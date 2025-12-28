@@ -1,0 +1,20 @@
+---
+alwaysApply: true
+---
+
+# Main directives
+
+**Always** check the following files in `docs/.context/` to ground your answers:
+
+if you have any doubt about my project's:
+
+- **Architecture:** `docs/.context/SOFTWARE_ARCHITECTURE.md`
+- **DevOps/Infra:** `docs/.context/DEVOPS_SPEC.md`
+- **Language/Patterns:** `docs/.context/PROGRAMMING_LANGUAGE_CONTEXT.md`
+- **Product/Specs:** `docs/.context/ENGINEERING_SPECS.md`
+
+## Critical Workflow
+
+1. If any modification changes the application's structure or business logic, you **must** update the respective documentation file in `docs/.context/` **before or during** the code change.
+2. Maintain consistency between the implementation and the `.md` specifications.
+3. If a requirement is unclear based on these docs, ask for clarification before proceeding.
